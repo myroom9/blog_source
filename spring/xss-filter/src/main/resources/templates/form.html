@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="content-form">
+        <form id="content-submit" action="/form-content" method="post">
+            <div>
+                <input type="text" name="content" id="content" placeholder="내용">
+                <label for="content">컨텐츠</label>
+            </div>
+
+            <div class="d-grid">
+                <button type="submit">
+                    저장하기
+                </button>
+            </div>
+        </form>
+        [[${content}]]
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <script th:inline="javascript" type="text/javascript">
+        const content = [[${content}]];
+        console.log(content);
+        $('#content-form').append('&lt;script&gt;alert(1);&lt;/script&gt;');
+
+        const contentForm = document.getElementById("content-form")
+
+        contentForm.addEventListener('submit', (e) => {
+            e.preventDefault()
+            document.getElementById("content-submit").submit();
+        })
+    </script>
+</body>
+</html>

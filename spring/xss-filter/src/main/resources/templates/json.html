@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="content-form">
+    <form>
+        <div>
+            <input type="text" name="content" id="content" placeholder="내용">
+            <label for="content">컨텐츠</label>
+        </div>
+
+        <div class="d-grid">
+            <button type="submit">
+                저장하기
+            </button>
+        </div>
+
+        <p id="content-res"></p>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+<script th:inline="javascript" type="text/javascript">
+    function attack() {
+        alert('공격당함 ㅠㅡㅠ');
+    }
+
+    const contentForm = document.getElementById('content-form')
+
+    contentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        /*$.ajax({
+
+            type : "POST",
+            url : "/json-content",
+            contentType: "application/json",
+            data: JSON.stringify({
+                content: document.getElementById('content').value
+            }),
+            error : function(e){
+                alert('통신실패!!');
+                console.log(e)
+            },
+            success : function(data){
+                // alert("통신데이터 값 : " + data) ;
+                console.log(data);
+                $('#content-form').append(data.content);
+            }
+
+        });*/
+
+        axios.post('/json-content', {
+            content: document.getElementById('content').value,
+        }).then((res) => {
+            console.log(res.data)
+            // document.getElementById('content-res').innerText = res.data;
+            $('#content-form').append(res.data.content);
+            // location.reload();
+        }).catch((e) => {
+            console.log(e)
+            alert('error')
+        })
+    })
+</script>
+</body>
+</html>
