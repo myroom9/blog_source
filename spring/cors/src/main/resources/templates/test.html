@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function test() {
+        $.ajax({
+            url: "http://localhost:8081",// 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            // method: "GET",
+            method: "PUT",
+        })
+            .done(function () {
+                $("<h1>").text(json.title).appendTo("body");
+                $("<div class=\"content\">").html(json.html).appendTo("body");
+            }).fail(function(xhr, status, errorThrown) {
+            $("#text").html("오류가 발생했다.<br>") .append("오류명: " + errorThrown + "<br>").append("상태: " + status);
+        }).always(function(xhr, status) { $("#text").html("요청이 완료되었습니다!"); });
+    }
+
+    function test1() {
+        $.ajax({
+            url: "http://localhost:8081",// 클라이언트가 HTTP 요청을 보낼 서버의 URL 주소
+            method: "GET",
+        })
+            .done(function () {
+                $("<h1>").text(json.title).appendTo("body");
+                $("<div class=\"content\">").html(json.html).appendTo("body");
+            }).fail(function(xhr, status, errorThrown) {
+            $("#text").html("오류가 발생했다.<br>") .append("오류명: " + errorThrown + "<br>").append("상태: " + status);
+        }).always(function(xhr, status) { $("#text").html("요청이 완료되었습니다!"); });
+    }
+
+</script>
+
+<body>
+    test
+
+    <button onclick="test()">javascript CORS PUT 테스트</button>
+    <button onclick="test1()">javascript CORS GET 테스트</button>
+
+    <form action="http://localhost:8081" method="get">
+        <button type="submit" >HTML CORS 테스트</button>
+    </form>
+</body>
+</html>

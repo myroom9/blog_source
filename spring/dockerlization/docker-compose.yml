@@ -1,0 +1,17 @@
+version: "3"
+services:
+  mysql_database:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: dockerlizationdb
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - 3306:3306
+
+  docker-app:
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql_database
